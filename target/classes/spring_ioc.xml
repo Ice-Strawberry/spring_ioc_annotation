@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+   <!--  @Controller 标记控制层的类注册为bean主键
+         @Service  标记在业务逻辑层的类注册为bean主键
+         @Repository 标记在数据访问层的类注册为bean主键
+         @Component 标记飞三层的普通的类注册为bean主键  例如自己定义的类
+
+         不是每个层都要对应相应的注解 ：1.可读性增强
+                                       2.利于spring管理
+
+          怎么使用将一个类注册为bean的步骤：1.xml设置扫描包<context:component-scan
+                                         2.在对应的类名上加上对应的注解
+           使用上面的注解会自动将类名首字母小写设置为bean的名字
+     -->
+<!--    <bean class="com.wyy.controller.UserController" id="userController"></bean>-->
+    <!--扫描包
+    base-package 设置需要扫描的包
+            排除扫描 <context:exclude-filter 设置需要排除的选项
+            包含扫描 <context:include-filter 设置需要包含的选项
+            type :1.annotation 默认根据注解的 完整的限定名 设置排除或者包含
+                  2.assignable  根据类的完整的限定名 设置排除或者包含
+                  3.aspectj   根据切面表达式  设置排除或者包含  一般不会太使用
+                  4.regex 根据正则表达式 设置排除或者包含  一般不会太使用
+                  5. custom  根据接口 设置排除或者包含 一般不会太使用
+    use-default-filters 默认true  会默认包含扫描四个注解@Controller @Service @Repository @Component
+                            false   不会扫描四个注解@Controller @Service @Repository @Component
+    -->
+    <!--  <context:component-scan base-package="com.wyy" use-default-filters="false">
+         //排除    按照注解的方式排除  排除哪一种规则：带有@    Controller org.springframework.stereotype.Controller
+       <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter  type="assignable" expression="com.wyy.controller.UserController"/>
+    </context:component-scan>-->
+
+    <context:component-scan base-package="com.wyy">
+    </context:component-scan>
+    <!--引用外部属性资源文件 可以通过@Value来获取里面的key值-->
+    <context:property-placeholder location="db.properties"></context:property-placeholder>
+</beans>
